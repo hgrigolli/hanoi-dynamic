@@ -56,13 +56,17 @@ char * hanoiDyn(char ***hm, int k, int a, int b, int c){
         char * z = hanoiDyn(hm, k-1, c, b, a);
         int tempSize = (strlen(x)+strlen(y)+strlen(z)+1);
 //        printf("tempSize %d\n", tempSize);
-        char temp[tempSize];
+        char *temp = malloc(tempSize * sizeof(char));
         temp[0] = '\0';
 //        printf("temp0 %s\n", temp);
+//        printf("concat x\n");
         strncat(temp, x, tempSize);
+
 //        printf("tempx %s\n", temp);
+//        printf("concat y\n");
         strncat(temp, y, tempSize);
 //        printf("tempxy %s\n", temp);
+//        printf("concat z\n");
         strncat(temp, z, tempSize);
 //        printf("tempxyz %s\n", temp);
 
@@ -70,13 +74,14 @@ char * hanoiDyn(char ***hm, int k, int a, int b, int c){
 //        printf("y: %s->%p\n", y, &y);
 //        printf("z: %s->%p\n", z, &z);
 //        printf("hm[k-1][j] %s\n", hm[k-1][j]);
-
+//        printf("aloca para hm\n");
         hm[k-1][j] = (char *) malloc( tempSize * sizeof(char) );
 //        printf("realocado %d\n", strlen(hm[k-1][j]));
+//        printf("copia De temp para  hm\n");
         strncpy(hm[k-1][j], temp, tempSize);
 
 //        free(temp);
-//        printf("fim hanoi %s\n", hm[k-1][j]);
+//        printf("fim hanoi %d %d\n", k-1, j);
 
      }
      return hm[k-1][j];
@@ -87,23 +92,26 @@ int main () {
 //    int n;
 //    printf("Digite a quantidade de blocos: ");
 //    scanf("%d", &n);
-    int n = 20;
+    int n = 30;
 
 //    printf("n\n");
     char ***hanoiMatrix;
-//    printf("aloca n linhas matrix\n");
+//    printf("xaloca n linhas matrix\n");
     hanoiMatrix = (char ***) calloc(n, sizeof(char **));
 //    printf("fim linhas aloca\n");
 
 
 //    printf("aloca colunas\n");
     for(int i = 0; i < n; i++){
+//        printf("linha i=%d\n", i);
         hanoiMatrix[i] = (char **) calloc(6, sizeof(char *));
+//     printf("linha i fim");
         for(int j = 0; j < 6; j++){
             hanoiMatrix[i][j] = "0";
         }
     }
 
+//    printf("matriz inicializada");
     hanoiMatrix[0][0] = "1";
     hanoiMatrix[0][1] = "2";
     hanoiMatrix[0][2] = "3";
@@ -111,8 +119,8 @@ int main () {
     hanoiMatrix[0][4] = "5";
     hanoiMatrix[0][5] = "6";
 
-
-    hanoiDyn(hanoiMatrix, n, 0,1,2);
+//    printf("entrando hanoi dyn");
+    char* fim = hanoiDyn(hanoiMatrix, n, 0,1,2);
 //    printf("saindo da recursao -> %s\n", fim);
 //    imprimeMatriz(hanoiMatrix, n);
 
