@@ -1,12 +1,22 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
+#include <time.h>
 
 void imprimeMatriz(char ***hm, int n){
-    for(int i = 0; i < n; i++){
+    printf(" n 012 021 120 201 210 102\n");
+    for(int i = n; i >= 0; i--){
+        if(i < 10){
+            printf(" %d ", i);
+        } else {
+        printf("%d ", i);
+        }
         for(int j = 0; j < 6; j++){
-            printf("%s ", hm[i][j]);
+            if(hm[i][j] != "0"){
+                printf(" X  ");
+            } else {
+                printf(" 0  ");
+            }
         }
         printf("\n");
     }
@@ -22,17 +32,17 @@ int traduzMapa(int a, int b, int c){
         }
     } else if (a == 1){
         if(b == 2 && c == 0){
-            return 2;
+            return 3;
         }
         else if (b == 0 && c == 2){
-            return 5;
+            return 2;
         }
     } else if (a == 2){
         if(b == 0 && c == 1){
-            return 3;
+            return 4;
         }
         else if (b == 1 && c == 0){
-            return 4;
+            return 5;
         }
     }
     return -1;
@@ -92,7 +102,7 @@ int main () {
 //    int n;
 //    printf("Digite a quantidade de blocos: ");
 //    scanf("%d", &n);
-    int n = 30;
+    int n = 25;
 
 //    printf("n\n");
     char ***hanoiMatrix;
@@ -102,7 +112,7 @@ int main () {
 
 
 //    printf("aloca colunas\n");
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i <= n; i++){
 //        printf("linha i=%d\n", i);
         hanoiMatrix[i] = (char **) calloc(6, sizeof(char *));
 //     printf("linha i fim");
@@ -114,18 +124,27 @@ int main () {
 //    printf("matriz inicializada");
     hanoiMatrix[0][0] = "1";
     hanoiMatrix[0][1] = "2";
-    hanoiMatrix[0][2] = "3";
-    hanoiMatrix[0][3] = "4";
-    hanoiMatrix[0][4] = "5";
-    hanoiMatrix[0][5] = "6";
+    hanoiMatrix[0][2] = "4";
+    hanoiMatrix[0][3] = "5";
+    hanoiMatrix[0][4] = "6";
+    hanoiMatrix[0][5] = "3";
+
+    clock_t t;
+    t = clock();
+    printf("Inicio hanoi\n");
+//    take_enter();
+    char* fim = hanoiDyn(hanoiMatrix, n, 0,1,2);
+    printf("Fim hanoi\n");
+    t = clock() - t;
+    double time_taken = ((double)t)/CLOCKS_PER_SEC; // calculate the elapsed time
+    printf("A execucao levou %f segundos\n", time_taken);
 
 //    printf("entrando hanoi dyn");
-    char* fim = hanoiDyn(hanoiMatrix, n, 0,1,2);
 //    printf("saindo da recursao -> %s\n", fim);
-//    imprimeMatriz(hanoiMatrix, n);
+   // imprimeMatriz(hanoiMatrix, n);
 
-    printf("Done.");
-//   free(hanoiMatrix);
+//    printf("Done.");
+    free(hanoiMatrix);
 
     return 0;
 }
