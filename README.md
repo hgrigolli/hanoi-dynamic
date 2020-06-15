@@ -1,4 +1,4 @@
-# hanoi-dynamic
+# Torrei de Hanoi com programação dinâmica
 
 ## Descrição do Problema
   O jogo da torre de Hanoi consiste em mover n discos de tamanhos diferentes, em ordem crescente, da coluna A para a coluna B, utilizando a coluna C como auxiliar, sendo que um disco maior não pode ficar acima de um disco menor.
